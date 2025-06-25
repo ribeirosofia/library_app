@@ -45,4 +45,30 @@ public class Library {
         }
     }
 
+    public void handleUserList(){
+        System.out.println("Gostaria de ver a lista de usuários cadastrados?(sim/nao)");
+        String answer = scanner.next();
+
+        if(answer.equalsIgnoreCase("nao")){
+            System.out.println("Gratidão por se cadastrar conosco.");
+        } else{
+           showAllUsers();
+        }
+
+    }
+
+    public void showAllUsers(){
+        System.out.println("\n====== LISTA DE USUÁRIOS CADASTRADOS ======");
+        if(users.isEmpty()){
+            System.out.println("Nenhum usuário foi cadastrado.");
+        } else{
+            for(User user : users){
+                System.out.println("Nome: " + user.getName());
+                System.out.println("Email: " + user.getEmail());
+                System.out.println("Data de nascimento: " + user.getBirthday());
+                System.out.println("--------------------------------------");
+            }
+        }
+    }
+
 }
