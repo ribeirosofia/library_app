@@ -1,9 +1,19 @@
 package library;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Author {
-    Integer authorId;
+    int id;
     String name;
     LocalDate birthdayDate;
+
+    public String getName() { return name; }
+
+    public LocalDate getBirthdayDate() { return birthdayDate; }
+
+    public void setName(String authorName) { this.name = authorName;}
+
+    public void setBirthdayDate(LocalDate birthdayDate) { this.birthdayDate = birthdayDate;    }
 }
