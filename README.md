@@ -8,4 +8,6 @@
 
 <p>The User class was developed first to be easier to understand the application through the user's perspective.</p>
 
-<p>Then, the User class was finished in the Library class, which is being called at the Main class, where the magic happens.</p>
+<p>Then, the User class was finished in the Library class, which is being called at the Main class.</p>
+
+<p>The Author class was developed to be called at the Library class, to be easier to find the books.</p>
