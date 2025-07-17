@@ -16,4 +16,8 @@ public class Author {
     public void setName(String authorName) { this.name = authorName;}
 
     public void setBirthdayDate(LocalDate birthdayDate) { this.birthdayDate = birthdayDate;    }
+
+    public String toString(){
+        return  this.name;
+    }
 }

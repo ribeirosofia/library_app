@@ -24,22 +24,21 @@ public class User {
 
        System.out.println("Insira seu nome");
 
-       name = scanner.next();
+       name = scanner.nextLine();
 
        System.out.println("Insira sua data de nascimento");
        String input = scanner.next();
        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
        birthday = LocalDate.parse(input, formatter);
 
-
        System.out.println("Insira seu email");
 
-       email = scanner.next();
+       email = scanner.nextLine();
 
        Random random = new Random();
-       userId = 100000L + random.nextLong(900000L);
+        userId = 100000L + (Math.abs(random.nextLong()) % 900000L);
 
-       System.out.printf("Bem vindo(a), %s! Seu ID de usuário é %d%n", name, userId);
+        System.out.printf("Bem vindo(a), %s! Seu ID de usuário é %d%n", name, userId);
 
    }
 

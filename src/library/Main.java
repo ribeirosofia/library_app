@@ -9,8 +9,11 @@ public class Main {
         Library library = new Library();
 
         library.handleUserLoginFlow();
-        library.chooseRegisterOrFindAuthor();
+        library.handleAuthorFlow();
         library.insertAnotherAuthor();
+        library.registerBookByAuthor();
+        library.registerAnotherBookByAuthor();
+        library.findAuthorByName();
         library.handleUserList();
     }
 
