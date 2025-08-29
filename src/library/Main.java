@@ -11,9 +11,6 @@ public class Main {
         library.handleUserLoginFlow();
         library.handleAuthorFlow();
         library.insertAnotherAuthor();
-        library.registerBookByAuthor();
-        library.registerAnotherBookByAuthor();
-        library.findAuthorByName();
         library.handleUserList();
     }
 

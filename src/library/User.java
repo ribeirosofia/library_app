@@ -12,28 +12,37 @@ public class User {
     LocalDate birthday;
     String email;
 
-    Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
+    Scanner scanner = new Scanner(System.in);
 
     public Long getUserId() { return this.userId; }
     public String getName() { return this.name; }
     public LocalDate getBirthday(){ return birthday;}
     public String getEmail() { return this.email; }
 
-    public void insertNewUserData(){
 
+
+    public String readLineSafe(){
+        String input;
+        do {
+            input = scanner.nextLine().trim();
+        } while (input.isEmpty());
+        return input;
+    }
+
+    public void insertNewUserData(){
 
        System.out.println("Insira seu nome");
 
-       name = scanner.nextLine();
+       name = readLineSafe();
 
        System.out.println("Insira sua data de nascimento");
-       String input = scanner.next();
+       String input = readLineSafe();
        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
        birthday = LocalDate.parse(input, formatter);
 
        System.out.println("Insira seu email");
 
-       email = scanner.nextLine();
+       email = readLineSafe();
 
        Random random = new Random();
         userId = 100000L + (Math.abs(random.nextLong()) % 900000L);
