@@ -5,6 +5,7 @@ import org.w3c.dom.ls.LSOutput;
 import javax.naming.InvalidNameException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class Library {
@@ -311,8 +312,8 @@ public class Library {
 
             if (loan.getUser().getUserId().equals(currentUser.getUserId()) && loan.getReturnDate() == null) {
                 hasDebt = true;
-                System.out.println("Você possui empréstimos em atraso. Multa pendente.");
-                //inserir metodo de pagamento de multa
+                handlePendingFees(currentUser);
+                payUserFee(currentUser);
                 break;
             }
         }
@@ -345,7 +346,51 @@ public class Library {
 
 
     public void handlePendingFees(User user){
+        List<Loan> loans = user.getLoans();
+        double totalFee = 0.0;
 
+        for (Loan loan : loans) {
+            LocalDate dueDate = loan.getDueDate();
+            LocalDate returnDate = loan.getReturnDate();
+            long daysLate = 0;
+
+            if (returnDate == null) {
+                if (LocalDate.now().isAfter(dueDate)) {
+                    daysLate = ChronoUnit.DAYS.between(dueDate, LocalDate.now());
+                }
+            } else {
+                if (returnDate.isAfter(dueDate)) {
+                    daysLate = ChronoUnit.DAYS.between(dueDate, returnDate);
+                }
+            }
+
+            totalFee += Fees.calculateFee(daysLate);
+        }
+
+        user.setPendingFees(totalFee);
+
+        if (totalFee > 0) {
+            user.setBlocked(true);
+            System.out.println("Usuário " + user.getName() +
+                    " possui multa de R$ " + totalFee + " e está bloqueado.");
+        } else {
+            user.setBlocked(false);
+            System.out.println("Usuário " + user.getName() + " não possui multas pendentes.");
+        }
+    }
+
+    public void payUserFee(User user) {
+        user.checkFeeStatus();
+        if (user.getPendingFees() > 0) {
+            System.out.println("Digite o valor que deseja pagar:");
+            double amount = scanner.nextDouble();
+            scanner.nextLine();
+            user.payFee(amount);
+        }
+    }
+
+    public void checkUserFeeStatus(User user) {
+        user.checkFeeStatus();
     }
 
 }
