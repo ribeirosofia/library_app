@@ -12,6 +12,7 @@ public class Main {
         library.handleAuthorFlow();
         library.insertAnotherAuthor();
         library.handleUserList();
+        library.createAnotherLoan();
     }
 
 

@@ -9,6 +9,7 @@ public class Book {
     String title;
     Author author;
     Boolean available;
+    Boolean isBorrowed;
     LocalDate dateRegister;
     LocalDate dateReturned;
 
@@ -27,6 +28,10 @@ public class Book {
     public void setAuthor(Author author) { this.author = author; }
 
     public Boolean getAvailable() { return available; }
+
+    public Boolean getBorrowed() { return isBorrowed;}
+
+    public void setBorrowed(Boolean borrowed) {  isBorrowed = borrowed; }
 
     public LocalDate getDateRegister() { return dateRegister;   }
 

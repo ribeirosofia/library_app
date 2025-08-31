@@ -111,37 +111,50 @@ public class Library {
         createLoan();
     }
 
-    public void registerBookByAuthor(){
-        System.out.println("Você está na página de cadastro de livro por autor.");
-        System.out.println("Insira o nome do autor que você procura");
-        String name = readLineSafe();
-
-        boolean found = false;
-
-        Author selectedAuthor = null;
-
-        for(Author author : authors){
-            if(author.getName().equalsIgnoreCase(name)){
-                selectedAuthor = author;
-                System.out.println("Autor/autora de nome " + name + " foi encontrado");
+    public Book registerBook(String title, Author author) {
+        for (Book book : books) {
+            if (book.getTitle().equalsIgnoreCase(title) && book.getAuthor().equals(author)) {
+                System.out.println("Esse livro já está cadastrado no sistema!");
+                return book;
             }
         }
 
-        if(selectedAuthor == null){
-            System.out.println("Autor/autora não encontrado.");
-           selectedAuthor = handleAuthorFlow();
+        Book newBook = new Book();
+        newBook.setTitle(title);
+        newBook.setAuthor(author);
+        books.add(newBook);
+
+        System.out.println("Você inseriu o livro " + title + " do autor/autora " + author.getName() + " na lista.");
+        newBook.bookData();
+
+        return newBook;
+    }
+
+    public void registerBookByAuthor(){
+        System.out.println("Você está na página de cadastro de livros por autor.");
+        System.out.println("Insira o nome do autor que você procura:");
+        String name = readLineSafe();
+
+        Author selectedAuthor = null;
+
+        for (Author author : authors) {
+            if (author.getName().equalsIgnoreCase(name)) {
+                selectedAuthor = author;
+                System.out.println("Autor/autora de nome " + name + " foi encontrado.");
+                break;
+            }
         }
 
-        System.out.println("Insira o nome do livro.");
+        if (selectedAuthor == null) {
+            System.out.println("Autor/autora não encontrado.");
+            selectedAuthor = handleAuthorFlow();
+        }
 
+        System.out.println("Insira o nome do livro:");
         String bookTitle = readLineSafe();
 
-        Book newBook = new Book();
-        newBook.setTitle(bookTitle);
-        newBook.setAuthor(selectedAuthor);
-        books.add(newBook);
-        System.out.println("Você inseriu o livro " + bookTitle + " do autor/autora " + selectedAuthor + " na lista.");
-        newBook.bookData();
+        registerBook(bookTitle, selectedAuthor);
+
         registerAnotherBookByAuthor();
     }
 
@@ -308,13 +321,24 @@ public class Library {
             System.out.println("Livro disponível para empréstimo. Deseja confirmar? (sim/nao)");
             String answer = readLineSafe();
             if (answer.equalsIgnoreCase("sim")) {
+                currentBook.setBorrowed(true);
                 Loan newLoan = new Loan(currentUser, currentBook);
                 newLoan.organizeReturnDate();
                 loans.add(newLoan);
-            System.out.println("Você emprestou o livro \"" + currentBook.getTitle() + "\"" + " escrito por " + currentBook.getAuthor());
+                System.out.println("Você emprestou o livro \"" + currentBook.getTitle() + "\"" + " escrito por " + currentBook.getAuthor());
             } else {
                 System.out.println("Operação cancelada. Obrigado por usar nossos serviços.");
             }
+        }
+    }
+
+    public void createAnotherLoan(){
+        System.out.println("Gostaria de realizar outro empréstimo? (sim/nao)");
+        String answer = readLineSafe();
+        if (answer.equalsIgnoreCase("sim")) {
+            createLoan();
+        } else{
+            System.out.println("Operação cancelada. Obrigado por usar nossos serviços.");
         }
     }
 
