@@ -8,28 +8,40 @@ public class Loan {
     User userId;
     Book bookId;
     LocalDate loanDate;
+    LocalDate dueDate;
     LocalDate returnDate;
     private boolean returned = false;
 
-    public Loan(User user, Book book){
+    public Loan(User user, Book book) {
         this.userId = user;
         this.bookId = book;
         this.loanDate = LocalDate.now();
-        organizeReturnDate();
+        this.dueDate = calculateDueDate();
+        this.returnDate = null;
     }
 
-    public User getUser() { return userId; }
-    public Book getBook() { return bookId; }
-    public LocalDate getReturnDate() { return returnDate; }
-    public boolean isReturned() { return returned; }
+    public User getUser() {
+        return userId;
+    }
 
-    public boolean isOverdue(){
+    public Book getBook() {
+        return bookId;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public LocalDate getReturnDate() {
+        return returnDate;
+    }
+
+    public boolean isOverdue() {
         return LocalDate.now().isAfter(returnDate);
     }
 
-    public void organizeReturnDate(){
-        LocalDate today = LocalDate.now();
-        LocalDate calculatedReturnDate = today;
+    public LocalDate calculateDueDate() {
+        LocalDate calculatedReturnDate = loanDate;
         int businessDays = 0;
 
         while (businessDays < 7) {
@@ -41,26 +53,17 @@ public class Loan {
             }
         }
 
-        this.returnDate = calculatedReturnDate;
-
-        System.out.println("Data de devolução: " + returnDate);
-
+        return calculatedReturnDate;
     }
 
-    public void markReturned(){
-        if(returned){
-            System.out.println("Este livro já foi devolvido.");
-        }
-        this.returned = true;
+    public void returnBook() {
+        this.returnDate = LocalDate.now();
+        System.out.println("Livro devolvido em: " + returnDate);
 
-        if(isOverdue()){
-            long daysLate = ChronoUnit.DAYS.between(returnDate, LocalDate.now());
-            double fee = Fees.calculateFee(daysLate);
-            System.out.println("Livro devolvido com atraso de " + daysLate + " dias.");
-            System.out.println("Taxa a ser paga: R$ " + String.format("%.2f", fee));
-        } else{
-            System.out.println("Livro devolvido no prazo. Agradecemos.");
+        if (returnDate.isAfter(dueDate)) {
+            System.out.println("⚠️ Devolução atrasada! O prazo era " + dueDate);
+        } else {
+            System.out.println("✅ Livro devolvido dentro do prazo.");
         }
     }
-
 }

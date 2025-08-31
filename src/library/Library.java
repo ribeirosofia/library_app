@@ -209,7 +209,7 @@ public class Library {
             newAuthor.setBirthdayDate(authorBirthday);
             authors.add(newAuthor);
             System.out.println("Você inseriu " + authorName + " como autor/autora. " +
-                    "\n Sua data de nascimento é em " + authorBirthday);
+                    "\n Sua data de nascimento é em " + authorBirthday.format(formatter));
             return newAuthor;
     }
 
@@ -323,7 +323,7 @@ public class Library {
             if (answer.equalsIgnoreCase("sim")) {
                 currentBook.setBorrowed(true);
                 Loan newLoan = new Loan(currentUser, currentBook);
-                newLoan.organizeReturnDate();
+                newLoan.calculateDueDate();
                 loans.add(newLoan);
                 System.out.println("Você emprestou o livro \"" + currentBook.getTitle() + "\"" + " escrito por " + currentBook.getAuthor());
             } else {
