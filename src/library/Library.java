@@ -225,7 +225,7 @@ public class Library {
         registerBookByAuthor();
     }
 
-    private User readValidUser() {
+    public User readValidUser() {
 
         boolean realUser = false;
 
@@ -246,7 +246,7 @@ public class Library {
         return null;
     }
 
-    private Book readValidBook() {
+    public Book readValidBook() {
 
         boolean realBook = false;
 
