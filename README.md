@@ -20,21 +20,21 @@
 <h2>Main tools</h2>
 
 <p>This Library is capable of:</p>
-<li>
-  <ul>Initialize a menu.</ul>
-  <ul>Register a new user.</ul>
-  <ul>Register new authors.</ul>
-  <ul>Register books by an author</ul>
-  <ul>Find the books by the author.</ul>
-  <ul>List all books</ul>
-  <ul>List all users</ul>
-  <ul>Create and manage loans and books.</ul>
-  <ul>Manage fees and payments.</ul>
+<ul>
+  <li>Initialize a menu.</li>
+  <li>Register a new user.</li>
+  <li>Register new authors.</li>
+  <li>Register books by an author</li>
+  <li>Find the books by the author.</li>
+  <li>List all books</li>
+  <li>List all users</li>
+  <li>Create and manage loans and books.</li>
+  <li>Manage fees and payments.</li>
 </li>
 
 <h2>Requirements</h2>
-<li>
-  <ul>JDK 8 and further JDKs.</ul>
-  <ul>IDEs such Eclipse, Intellij IDEA, NetBeans, VSCode.</ul>
-</li>
+<ul>
+  <li>JDK 8 and further JDKs.</li>
+  <li>IDEs such Eclipse, Intellij IDEA, NetBeans, VSCode.</li>
+</ul>
 
